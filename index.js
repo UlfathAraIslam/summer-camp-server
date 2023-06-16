@@ -36,16 +36,16 @@ async function run() {
     })
 
     // selected classes collection
-    // app.get('/selectedClasses', async(req, res) => {
-    //   const email = req.query.email;
-    //   console.log(email);
-    //   if(!email){
-    //     res.send([])
-    //   }
-    //   const query = {email: email};
-    //   const result = await selectedClassesCollection.find(query).toArray();
-    //   res.send(result);
-    // })
+    app.get('/selectedClasses', async(req, res) => {
+      const email = req.query.email;
+      console.log(email);
+      if(!email){
+        res.send([])
+      }
+      const query = {email: email};
+      const result = await selectedClassesCollection.find(query).toArray();
+      res.send(result);
+    })
 
 
     app.post('/selectedClasses', async(req,res) => {
