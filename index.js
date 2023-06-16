@@ -48,12 +48,12 @@ async function run() {
     // })
 
 
-    // app.post('/selectedClasses', async(req,res) => {
-    //   const item = req.body;
-    //   console.log(item);
-    //   const result = await selectedClassesCollection.insertOne(item);
-    //   res.send(result);
-    // })
+    app.post('/selectedClasses', async(req,res) => {
+      const item = req.body;
+      console.log(item);
+      const result = await selectedClassesCollection.insertOne(item);
+      res.send(result);
+    })
 
 
     // Send a ping to confirm a successful connection
