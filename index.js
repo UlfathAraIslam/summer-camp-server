@@ -29,11 +29,11 @@ async function run() {
     const classesCollection = client.db("summerCamp").collection("classes");
     const selectedClassesCollection = client.db("summerCamp").collection("selectedClasses");
 
-    // app.get('/classes', async(req,res) => {
+    app.get('/classes', async(req,res) => {
 
-    //     const result = await classesCollection.find().toArray();
-    //     res.send(result);
-    // })
+        const result = await classesCollection.find().toArray();
+        res.send(result);
+    })
 
     // selected classes collection
     // app.get('/selectedClasses', async(req, res) => {
