@@ -32,8 +32,23 @@ async function run() {
 
 
     // users collection
+
+    // app.get('/users', async (req, res) => {
+    //   const result = await usersCollection.find().toArray();
+    //   res.send(result);
+    // })
+
+    // TODO:user is not added in db
     app.post('/users', async(req,res) => {
       const user = req.body;
+      console.log(user);
+      const query = {email: user.email}
+      const existingUser = await usersCollection.findOne(query);
+      // console.log('existing user',existingUser);
+
+      if(existingUser){
+        return res.send({message: 'user already exists'})
+      }
       const result = await usersCollection.insertOne(user);
       res.send(result);
     })
@@ -47,7 +62,6 @@ async function run() {
     // selected classes collection
     app.get('/selectedClasses', async(req, res) => {
       const email = req.query.email;
-      // console.log(email);
       if(!email){
         return res.send([])
       }
@@ -64,6 +78,7 @@ async function run() {
       res.send(result);
     })
 
+    // TODO: delete is not working
     app.delete('/selectedClasses/:id', async(req,res) => {
       const id = req.params.id;
       const query ={_id: new ObjectId(id)};
