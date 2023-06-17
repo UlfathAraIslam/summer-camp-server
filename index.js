@@ -26,8 +26,17 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+    const usersCollection = client.db("summerCamp").collection("users");
     const classesCollection = client.db("summerCamp").collection("classes");
     const selectedClassesCollection = client.db("summerCamp").collection("selectedClasses");
+
+
+    // users collection
+    app.post('/users', async(req,res) => {
+      const user = req.body;
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
+    })
 
     app.get('/classes', async(req,res) => {
 
