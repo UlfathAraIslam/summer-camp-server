@@ -33,10 +33,10 @@ async function run() {
 
     // users collection
 
-    // app.get('/users', async (req, res) => {
-    //   const result = await usersCollection.find().toArray();
-    //   res.send(result);
-    // })
+    app.get('/users', async (req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    })
 
     // TODO:user is not added in db
     app.post('/users', async(req,res) => {
