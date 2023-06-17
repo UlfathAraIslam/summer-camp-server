@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const port = process.env.PORT || 5000;
 
 // middleware
@@ -30,6 +31,12 @@ async function run() {
     const classesCollection = client.db("summerCamp").collection("classes");
     const selectedClassesCollection = client.db("summerCamp").collection("selectedClasses");
 
+    // jwt api
+    app.post('/jwt', (req, res) => {
+      const user = req.body;
+      const token = jwt.sign(user, env.process.ACCESS_TOKEN_SECRET, { expiresIn: '1h' }) 
+      res.send({token});
+    })
 
     // users collection
 
@@ -50,6 +57,22 @@ async function run() {
         return res.send({message: 'user already exists'})
       }
       const result = await usersCollection.insertOne(user);
+      res.send(result);
+    })
+
+
+    // admin
+    app.patch('/users/admin/:id', async(req, res) => {
+      const id = req.params.id;
+      console.log(id);
+      const filter  = {_id: new Object(id)};
+      const updateDoc = {
+        $set: {
+          role: 'admin'
+        },
+      };
+      
+      const result = await usersCollection.updateOne(filter, updateDoc);
       res.send(result);
     })
 
